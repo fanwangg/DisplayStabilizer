@@ -67,20 +67,19 @@ public class proCamera implements Runnable{
                     status = new MatOfByte();
                     err = new MatOfFloat();
                     prevPts = new MatOfPoint2f();
-                    if(nextPts != null){
-                        prevPts = nextPts;
-                    }
-                    initial = new MatOfPoint();
-                    //prevPts = nextPts;
-                    if(runNum<5){
+                    //if(nextPts != null){
+                    prevPts = nextPts;
+                    //}
+
+
+                    if(initial == null || nxtMat != null){
+                        initial = new MatOfPoint();
                         Imgproc.goodFeaturesToTrack(nxtMat, initial, 500, 0.01, 0.01);
-                    }
-                    runNum++;
-                    if(initial != null){
+                        prevPts = new MatOfPoint2f();
                         initial.convertTo(prevPts, CvType.CV_32FC2);
                     }
-
-                    if(prevPts.toArray().length > 50 && preMat != null && nxtMat != null) {
+                    //prevPts.toArray().length != 0  &&
+                    if(preMat != null && nxtMat != null && prevPts != null ) {
                         Log.d(TAG,"Runnable Processing 3");
                         nextPts = new MatOfPoint2f();
                         //Log.d(TAG, "lenght = " + String.valueOf(prevPts.toArray().length));
@@ -91,9 +90,6 @@ public class proCamera implements Runnable{
                         deltaX = pointn[5].x - pointp[5].x;
                         deltaY = pointn[5].y - pointp[5].y;
                         Log.d(TAG, "deltaX,Y = " + String.valueOf(deltaX)+" "+String.valueOf(deltaY));
-
-
-
                     }
 
                 }
