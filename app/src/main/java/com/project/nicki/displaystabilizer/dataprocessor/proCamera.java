@@ -72,11 +72,20 @@ public class proCamera implements Runnable{
                     //}
 
 
-                    if(initial == null || nxtMat != null){
+                    if (prevPts == null || nxtMat != null){
+
+                        /*
+                        FeatureDetector detectFeature = new FeatureDetector(FeatureDetector.ORB);
+                        nxtKeypoints = new MatOfKeyPoint();
+                        detectFeature.detect(nxtMat,nxtKeypoints);
+                        nxtKeypoints.convertTo(prevPts,CvType.CV_32FC2);
+                        */
+
                         initial = new MatOfPoint();
                         Imgproc.goodFeaturesToTrack(nxtMat, initial, 500, 0.01, 0.01);
                         prevPts = new MatOfPoint2f();
                         initial.convertTo(prevPts, CvType.CV_32FC2);
+
                     }
                     //prevPts.toArray().length != 0  &&
                     if(preMat != null && nxtMat != null && prevPts != null ) {

@@ -16,7 +16,7 @@ import org.opencv.utils.Converters;
 public class FeatureDetector {
 
     protected final long nativeObj;
-    protected FeatureDetector(long addr) { nativeObj = addr; }
+    public FeatureDetector(long addr) { nativeObj = addr; }
 
 
     private static final int
