@@ -17,6 +17,7 @@ import org.opencv.core.MatOfPoint2f;
 import org.opencv.core.Point;
 import org.opencv.core.Rect;
 import org.opencv.features2d.FeatureDetector;
+import org.opencv.features2d.Features2d;
 import org.opencv.imgproc.Imgproc;
 import org.opencv.utils.Converters;
 import org.opencv.video.Video;
@@ -96,9 +97,23 @@ public class proCamera implements Runnable{
                         Point[] pointp = prevPts.toArray();
                         Point[] pointn = nextPts.toArray();
 
+
+                        deltaX = 0 ;
+                        deltaY = 0 ;
+                        for(int i = 0; i<pointn.length ; i++){
+                            deltaX = deltaX + pointn[i].x - pointp[i].x;
+                            deltaY = deltaY + pointn[i].y - pointp[i].y;
+                        }
+                        deltaX = deltaX/pointn.length;
+                        deltaY = deltaY/pointn.length;
+
+                        /*
                         deltaX = pointn[5].x - pointp[5].x;
                         deltaY = pointn[5].y - pointp[5].y;
+                        */
+
                         Log.d(TAG, "deltaX,Y = " + String.valueOf(deltaX)+" "+String.valueOf(deltaY));
+
                     }
 
                 }
