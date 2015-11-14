@@ -38,6 +38,10 @@
         </activity>
         <activity android:name=".dataprovider.getBackcam" >
         </activity>
+        <activity android:name=".contentprovider.DemoDraw" >
+        </activity>
+        <activity android:name=".UI.DemoDrawUI" >
+        </activity>
     </application>
 
 </manifest>

@@ -4,15 +4,8 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-import com.project.nicki.displaystabilizer.UI.DemoStabilizeOn;
-import com.project.nicki.displaystabilizer.UI.sensor_info;
-import com.project.nicki.displaystabilizer.dataprocessor.proAccelerometer;
-import com.project.nicki.displaystabilizer.dataprocessor.proCamera;
-import com.project.nicki.displaystabilizer.dataprovider.getAccelerometer;
-import com.project.nicki.displaystabilizer.dataprovider.getBackcam;
-import com.project.nicki.displaystabilizer.dataprovider.getFrontcam;
-import com.project.nicki.displaystabilizer.dataprovider.getGyroscope;
-import com.project.nicki.displaystabilizer.stabilization.*;
+import com.project.nicki.displaystabilizer.UI.DemoDrawUI;
+import com.project.nicki.displaystabilizer.contentprovider.DemoDraw;
 
 public class init extends AppCompatActivity {
     String TAG = "init";
@@ -27,16 +20,20 @@ public class init extends AppCompatActivity {
         //new Thread(new getFrontcam(getBaseContext())).start();
         //new Thread(new proCamera(getBaseContext())).start();
 
+        Intent goto_DemoDrawUI = new Intent();
+        goto_DemoDrawUI.setClass(init.this, DemoDrawUI.class);
+        startActivity(goto_DemoDrawUI);
+
         /*
         Intent goto_DemoStabilizeOn = new Intent();
         goto_DemoStabilizeOn.setClass(init.this, DemoStabilizeOn.class);
         startActivity(goto_DemoStabilizeOn);
         */
-
+        /*
         Intent goto_getFrontcam = new Intent();
         goto_getFrontcam.setClass(init.this, getFrontcam.class);
         startActivity(goto_getFrontcam);
-
+        */
         /*
         Intent goto_getBackcam = new Intent();
         goto_getBackcam.setClass(init.this, getBackcam.class);
