@@ -6,6 +6,7 @@ import android.os.Bundle;
 
 import com.project.nicki.displaystabilizer.UI.DemoDrawUI;
 import com.project.nicki.displaystabilizer.contentprovider.DemoDraw;
+import com.project.nicki.displaystabilizer.dataprovider.getFrontcam;
 
 public class init extends AppCompatActivity {
     String TAG = "init";

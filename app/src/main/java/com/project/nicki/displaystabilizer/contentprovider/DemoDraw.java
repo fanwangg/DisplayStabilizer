@@ -11,6 +11,7 @@ import android.os.Bundle;
 import com.project.nicki.displaystabilizer.R;
 import android.app.Activity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.Window;
 import android.view.WindowManager;
@@ -47,9 +48,11 @@ import android.view.View;
 public class DemoDraw extends View {
     private Paint paint = new Paint();
     private Path path = new Path();
-
-    public DemoDraw(Context context) {
+    public DemoDraw(Context context){
         super(context);
+    }
+    public DemoDraw(Context context, AttributeSet attrs) {
+        super(context,attrs);
 
         paint.setAntiAlias(true);
         paint.setStrokeWidth(5f);
@@ -84,6 +87,7 @@ public class DemoDraw extends View {
 
         // Schedules a repaint.
         invalidate();
+        Log.d("aaaaaa","aaaaaaaaaaaaaaaaa");
         return true;
     }
 }

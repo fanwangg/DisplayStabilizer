@@ -4,6 +4,8 @@ import android.os.HandlerThread;
 import android.os.Message;
 import android.util.Log;
 
+import com.project.nicki.displaystabilizer.UI.DemoDrawUI;
+import com.project.nicki.displaystabilizer.contentprovider.DemoDraw;
 import com.project.nicki.displaystabilizer.dataprovider.getFrontcam;
 
 import org.opencv.core.Core;
@@ -56,12 +58,12 @@ public class proCamera implements Runnable{
     public void run() {
         Log.d(TAG,"Runnable start");
         //while(true){
-            if(getFrontcam.curMat != null){
+            if(DemoDrawUI.curMat != null){
                 FeatureDetector detector = FeatureDetector.create(FeatureDetector.ORB);
                 preMat = new Mat();
                 preMat = nxtMat;
                 nxtMat = new Mat();
-                nxtMat = getFrontcam.curMat;
+                nxtMat = DemoDrawUI.curMat;
                 Log.d(TAG,"Runnable Processing 1");
                 if(nxtMat != null){
                     Log.d(TAG,"Runnable Processing 2");
