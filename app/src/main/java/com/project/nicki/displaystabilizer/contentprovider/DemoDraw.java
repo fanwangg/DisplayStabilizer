@@ -116,7 +116,6 @@ public class DemoDraw extends View {
 
         // Schedules a repaint.
         invalidate();
-        Log.d("aaaaaa", "aaaaaaaaaaaaaaaaa");
         return true;
     }
 }

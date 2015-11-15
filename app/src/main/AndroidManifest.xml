@@ -42,7 +42,6 @@
         </activity>
         <activity android:name=".UI.DemoDrawUI" >
         </activity>
-
     </application>
 
 </manifest>

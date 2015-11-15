@@ -17,6 +17,8 @@ public class proDataFlow implements Runnable {
     public static Handler AcceHandler;
     public static Handler GyroHandler;
     public double[][][] data;
+    public boolean LOGSTATUS = true;
+    public boolean CREATETHREAD = true;
     Runnable run = new Runnable() {
         @Override
         public void run() {
@@ -39,19 +41,6 @@ public class proDataFlow implements Runnable {
     public void run() {
         try {
             Log.d(TAG, "run start");
-            /*
-            while(DemoDraw.drawing == true){
-                //Log.d(TAG,"drawing");
-                run.run();
-            }
-
-            long endTime = System.currentTimeMillis();
-            long currproCam = (long) proCamera.data[0];
-            while(currproCam < endTime) {
-                run.run();
-                currproCam  =  proCamera.currTime;
-            }
-            */
         } catch (Exception ex) {
         }
 
@@ -64,14 +53,20 @@ public class proDataFlow implements Runnable {
                 switch (msg.what) {
                     case 0:
                     case 1:
+                        LOGSTATUS = true;
                         Log.d(TAG, "Start");
                         Bundle DrawBundle = new Bundle();
                         DrawBundle = msg.getData();
                         float[] DrawData = DrawBundle.getFloatArray("Draw");
                         long DrawTime = DrawBundle.getLong("Time");
                         Log.d(TAG, "DrawDATA@ " + "Time:" + String.valueOf(DrawTime) + " X:" + String.valueOf(DrawData[0]) + " Y:" + String.valueOf(DrawData[1]));
+                        sendData(LOGSTATUS, DrawBundle);
+                        CREATETHREAD = false;
                     case 2:
+                        LOGSTATUS = false;
                         Log.d(TAG, "Stop");
+                        CREATETHREAD = true;
+
                 }
 
             }
@@ -86,6 +81,7 @@ public class proDataFlow implements Runnable {
                 MovementData = MovementBundle.getDoubleArray("Movement");
                 long CameraTime = MovementBundle.getLong("Time");
                 Log.d(TAG, "CameraDATA@ " + "Time:" + String.valueOf(CameraTime) + " X:" + String.valueOf(MovementData[0]) + " Y:" + String.valueOf(MovementData[1]));
+                sendData(LOGSTATUS, MovementBundle);
             }
         };
         AcceHandler = new Handler() {
@@ -95,10 +91,11 @@ public class proDataFlow implements Runnable {
                 Bundle AcceBundle = new Bundle();
                 AcceBundle = msg.getData();
                 float[] AcceData = new float[3];
-                long AcceTime ;
+                long AcceTime;
                 AcceData = AcceBundle.getFloatArray("Acce");
                 AcceTime = AcceBundle.getLong("Time");
-                Log.d(TAG, "AcceDATA@ " + "Time:" + String.valueOf(AcceTime) + " X:" + String.valueOf(AcceData[0]) + " Y:" + String.valueOf(AcceData[1]) + " Z:"+String.valueOf(AcceData[2]));
+                Log.d(TAG, "AcceDATA@ " + "Time:" + String.valueOf(AcceTime) + " X:" + String.valueOf(AcceData[0]) + " Y:" + String.valueOf(AcceData[1]) + " Z:" + String.valueOf(AcceData[2]));
+                sendData(LOGSTATUS, AcceBundle);
             }
         };
         GyroHandler = new Handler() {
@@ -112,11 +109,19 @@ public class proDataFlow implements Runnable {
                 GyroData = GyroBundle.getFloatArray("Gyro");
                 GyroTime = GyroBundle.getLong("Time");
                 Log.d(TAG, "GyroDATA@ " + "Time:" + String.valueOf(GyroTime) + " X:" + String.valueOf(GyroData[0]) + " Y:" + String.valueOf(GyroData[1]) + " Z:" + String.valueOf(GyroData[2]));
+                sendData(LOGSTATUS, GyroBundle);
             }
         };
 
         Looper.loop();
 
-
     }
+
+    public void sendData(boolean LOGSTATUS, Bundle data) {
+        if (LOGSTATUS == true) {
+
+        }
+    }
+
+    ;
 }

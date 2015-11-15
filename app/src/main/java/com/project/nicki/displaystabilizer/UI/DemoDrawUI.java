@@ -1,8 +1,10 @@
 package com.project.nicki.displaystabilizer.UI;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.HandlerThread;
+import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.MenuItem;
@@ -33,7 +35,7 @@ public class DemoDrawUI extends AppCompatActivity implements CameraBridgeViewBas
     private boolean mIsJavaCamera = true;
     private MenuItem mItemSwitchCamera = null;
     private Mat mRgba, mGray;
-    private Handler proCameraHandler;
+    public static Handler proCameraHandler, goto_results;
     private HandlerThread mHandlerThread;
     private Runnable mRunnable = new proCamera();
     private BaseLoaderCallback mLoaderCallback = new BaseLoaderCallback(this) {
@@ -116,7 +118,6 @@ public class DemoDrawUI extends AppCompatActivity implements CameraBridgeViewBas
             Log.d(TAG, "onCameraFrame");
             //mRgba = inputFrame.gray();
             curMat = inputFrame.gray();
-            Log.d("a", "aaaaaaaaaaaaaa");
             //proCameraHandler = new Handler(mHandlerThread.getLooper());
             //proCameraHandler.post(mRunnable);
 

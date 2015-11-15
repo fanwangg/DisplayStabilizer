@@ -5,12 +5,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 import com.project.nicki.displaystabilizer.UI.DemoDrawUI;
-import com.project.nicki.displaystabilizer.contentprovider.DemoDraw;
 import com.project.nicki.displaystabilizer.dataprocessor.proDataFlow;
 import com.project.nicki.displaystabilizer.dataprovider.getAccelerometer;
-import com.project.nicki.displaystabilizer.dataprovider.getFrontcam;
 import com.project.nicki.displaystabilizer.dataprovider.getGyroscope;
-import com.project.nicki.displaystabilizer.stabilization.DrawStabilizer;
+import com.project.nicki.displaystabilizer.stabilization.stabilize_v1;
 
 public class init extends AppCompatActivity {
     String TAG = "init";
@@ -25,6 +23,7 @@ public class init extends AppCompatActivity {
         //new Thread(new getFrontcam(getBaseContext())).start();
         //new Thread(new proCamera(getBaseContext())).start();
         new Thread(new proDataFlow(getBaseContext())).start();
+        new Thread(new stabilize_v1(getBaseContext())).start();
 
         Intent goto_DemoDrawUI = new Intent();
         goto_DemoDrawUI.setClass(init.this, DemoDrawUI.class);
