@@ -8,6 +8,7 @@ import android.util.Log;
 import com.project.nicki.displaystabilizer.UI.DemoDrawUI;
 import com.project.nicki.displaystabilizer.contentprovider.DemoDraw;
 import com.project.nicki.displaystabilizer.dataprovider.getFrontcam;
+import com.project.nicki.displaystabilizer.stabilization.DrawStabilizer;
 
 import org.opencv.core.Core;
 import org.opencv.core.CvType;
@@ -100,7 +101,6 @@ public class proCamera implements Runnable {
                     data[1] = deltaX;
                     data[2] = deltaY;
                     Log.d(TAG, "deltaX,Y = " + String.valueOf(deltaX) + " " + String.valueOf(deltaY));
-
 
 
                 }

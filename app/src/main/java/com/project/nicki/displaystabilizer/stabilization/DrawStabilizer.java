@@ -19,7 +19,7 @@ public class DrawStabilizer implements Runnable {
     public DrawStabilizer(Context context){
         mContext = context;
     }
-
+    public static Handler mHandler;
 
 
 
@@ -27,7 +27,7 @@ public class DrawStabilizer implements Runnable {
     public void run() {
         try{
             Log.d(TAG,"run start");
-
+            /*
             while(DemoDraw.drawing == true){
                 //Log.d(TAG,"drawing");
                 run.run();
@@ -39,6 +39,7 @@ public class DrawStabilizer implements Runnable {
                 run.run();
                 currproCam  =  proCamera.currTime;
             }
+            */
         }catch (Exception ex){
 
         }
