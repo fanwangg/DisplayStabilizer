@@ -7,6 +7,8 @@ import android.os.Looper;
 import android.os.Message;
 import android.util.Log;
 
+import com.project.nicki.displaystabilizer.stabilization.stabilize_v1;
+
 /**
  * Created by nicki on 11/14/2015.
  */
@@ -16,9 +18,8 @@ public class proDataFlow implements Runnable {
     public static Handler CameraHandler;
     public static Handler AcceHandler;
     public static Handler GyroHandler;
-    public double[][][] data;
     public boolean LOGSTATUS = true;
-    public boolean CREATETHREAD = true;
+
     Runnable run = new Runnable() {
         @Override
         public void run() {
@@ -61,11 +62,11 @@ public class proDataFlow implements Runnable {
                         long DrawTime = DrawBundle.getLong("Time");
                         Log.d(TAG, "DrawDATA@ " + "Time:" + String.valueOf(DrawTime) + " X:" + String.valueOf(DrawData[0]) + " Y:" + String.valueOf(DrawData[1]));
                         sendData(LOGSTATUS, DrawBundle);
-                        CREATETHREAD = false;
+
                     case 2:
                         LOGSTATUS = false;
                         Log.d(TAG, "Stop");
-                        CREATETHREAD = true;
+
 
                 }
 
@@ -119,9 +120,16 @@ public class proDataFlow implements Runnable {
 
     public void sendData(boolean LOGSTATUS, Bundle data) {
         if (LOGSTATUS == true) {
-
+            Message msg = new Message();
+            msg.what = 1;
+            msg.setData(data);
+            stabilize_v1.getDatas.sendMessage(msg);
+        }else{
+            Message msg = new Message();
+            msg.what = 0;
+            stabilize_v1.getDatas.sendMessage(msg);
         }
     }
 
-    ;
+
 }
