@@ -101,7 +101,7 @@ public class proCamera implements Runnable {
                     data[2] = deltaY;
                     Log.d(TAG, "deltaX,Y = " + String.valueOf(deltaX) + " " + String.valueOf(deltaY));
 
-                    Looper looper = DemoDraw
+
 
                 }
 
