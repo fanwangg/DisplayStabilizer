@@ -1,5 +1,6 @@
 package com.project.nicki.displaystabilizer.UI;
 
+import android.content.Context;
 import android.os.Handler;
 import android.os.HandlerThread;
 import android.support.v7.app.AppCompatActivity;
@@ -124,12 +125,17 @@ public class DemoDrawUI extends AppCompatActivity implements CameraBridgeViewBas
     }
 
     public Mat onCameraFrame(CameraBridgeViewBase.CvCameraViewFrame inputFrame) {
-        Log.d(TAG, "onCameraFrame");
-        //mRgba = inputFrame.gray();
-        curMat = inputFrame.gray();
-
-        proCameraHandler = new Handler(mHandlerThread.getLooper());
-        proCameraHandler.post(mRunnable);
+        if(DemoDraw.drawing == true){
+            Log.d(TAG, "onCameraFrame");
+            //mRgba = inputFrame.gray();
+            curMat = inputFrame.gray();
+            Log.d("a","aaaaaaaaaaaaaa");
+            //proCameraHandler = new Handler(mHandlerThread.getLooper());
+            //proCameraHandler.post(mRunnable);
+            Runnable mproCamera = new proCamera() ;
+            Thread thread = new Thread(mproCamera);
+            thread.start();
+        }
         return proCamera.proMat;
     }
     ///////////
