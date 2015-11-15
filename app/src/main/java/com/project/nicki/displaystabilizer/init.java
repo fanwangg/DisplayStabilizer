@@ -6,6 +6,7 @@ import android.os.Bundle;
 
 import com.project.nicki.displaystabilizer.UI.DemoDrawUI;
 import com.project.nicki.displaystabilizer.contentprovider.DemoDraw;
+import com.project.nicki.displaystabilizer.dataprocessor.proDataFlow;
 import com.project.nicki.displaystabilizer.dataprovider.getFrontcam;
 import com.project.nicki.displaystabilizer.stabilization.DrawStabilizer;
 
@@ -21,7 +22,7 @@ public class init extends AppCompatActivity {
         //new Thread(new onlyAcceXY(getBaseContext())).start();
         //new Thread(new getFrontcam(getBaseContext())).start();
         //new Thread(new proCamera(getBaseContext())).start();
-        //new Thread(new DrawStabilizer(getBaseContext())).start();
+        new Thread(new proDataFlow(getBaseContext())).start();
 
         Intent goto_DemoDrawUI = new Intent();
         goto_DemoDrawUI.setClass(init.this, DemoDrawUI.class);

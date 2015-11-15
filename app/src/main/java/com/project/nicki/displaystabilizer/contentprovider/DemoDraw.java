@@ -55,6 +55,7 @@ import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
 import com.project.nicki.displaystabilizer.stabilization.DrawStabilizer;
+import com.project.nicki.displaystabilizer.dataprocessor.proDataFlow;
 
 
 import java.util.logging.LogRecord;
@@ -98,9 +99,6 @@ public class DemoDraw extends View {
 
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
-                Runnable mDrawStabilizer = new DrawStabilizer(mContext);
-                Thread thread = new Thread(mDrawStabilizer);
-                thread.start();
                 drawing = true;
                 path.moveTo(eventX, eventY);
                 return true;
