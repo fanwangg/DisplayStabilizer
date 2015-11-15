@@ -80,7 +80,7 @@ public class DemoDraw extends View {
         float eventY = event.getY();
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
-
+                Log.d(TAG,"AAAA down");
                 Message msgSTART = new Message();
                 msgSTART.what = 0;
 
@@ -100,7 +100,7 @@ public class DemoDraw extends View {
                 path.moveTo(eventX, eventY);
                 return true;
             case MotionEvent.ACTION_MOVE:
-                Log.d(TAG, "Drawing");
+                Log.d(TAG, "AAAA Drawing");
                 Message msgDRAWING = new Message();
                 msgDRAWING.what = 1;
 
@@ -121,7 +121,7 @@ public class DemoDraw extends View {
                 path.lineTo(eventX, eventY);
                 break;
             case MotionEvent.ACTION_UP:
-
+                Log.d(TAG,"AAAA up");
                 Message msgSTOP = new Message();
                 msgSTOP.what = 2;
                 proDataFlow.drawHandler.sendMessage(msgSTOP);

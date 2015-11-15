@@ -19,7 +19,8 @@ public class stabilize_v1 implements Runnable {
     public static Handler getDatas;
     private Context mContext;
     public Bundle DataCollected ;
-    public int LOGSTATUS;
+    public boolean LOGSTATUS;
+    public int bundlenum = 1;
     public stabilize_v1(Context context) {
         mContext = context;
     }
@@ -33,15 +34,17 @@ public class stabilize_v1 implements Runnable {
             @Override
             public void handleMessage(Message msg) {
                 super.handleMessage(msg);
-                Log.d(TAG, "GOT BUNDLE");
 
-                LOGSTATUS = msg.what;
+
+                LOGSTATUS = DemoDraw.drawing;
+                Log.d(TAG, "LOGSTATUS "+LOGSTATUS);
                 Bundle bundlegot = msg.getData();
-                int bundlenum = 1;
-                if( LOGSTATUS == 1 && msg.getData() != null){
+
+                if( LOGSTATUS == true && msg.getData() != null){
                     DataCollected.putBundle(String.valueOf(bundlenum), bundlegot);
                     bundlenum = bundlenum +1 ;
-                }else if(LOGSTATUS == 0 && DataCollected != null){
+                    Log.d(TAG, String.valueOf(bundlenum));
+                }else if(LOGSTATUS == false && DataCollected != null){
                     if(DataCollected != null){
                         bundlenum = 1;
                         Thread mthread = new Thread(new Stabilization(DataCollected));
@@ -67,8 +70,8 @@ public class stabilize_v1 implements Runnable {
         public void run() {
             Log.d(TAG, "now on thread");
             if(mbundle != null){
-                //int Length = mbundle.size();
-                int Length = 100;
+                int Length = mbundle.size();
+                //int Length = 100;
                 float[][] a = new float[Length][2];
                 for(int i = 0;i<Length;i++){
                     a[i][0] = i+3; //x

@@ -65,6 +65,8 @@ public class proDataFlow implements Runnable {
 
                     case 2:
                         LOGSTATUS = false;
+                        Bundle nullbundle = new Bundle();
+                        sendData(LOGSTATUS, nullbundle);
                         Log.d(TAG, "Stop");
 
 
