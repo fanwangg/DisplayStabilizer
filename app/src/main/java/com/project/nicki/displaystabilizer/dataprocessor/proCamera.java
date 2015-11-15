@@ -1,16 +1,12 @@
 package com.project.nicki.displaystabilizer.dataprocessor;
+
 import android.content.Context;
-import android.os.HandlerThread;
-import android.os.Looper;
+import android.os.Bundle;
 import android.os.Message;
 import android.util.Log;
 
 import com.project.nicki.displaystabilizer.UI.DemoDrawUI;
-import com.project.nicki.displaystabilizer.contentprovider.DemoDraw;
-import com.project.nicki.displaystabilizer.dataprovider.getFrontcam;
-import com.project.nicki.displaystabilizer.stabilization.DrawStabilizer;
 
-import org.opencv.core.Core;
 import org.opencv.core.CvType;
 import org.opencv.core.Mat;
 import org.opencv.core.MatOfByte;
@@ -19,25 +15,19 @@ import org.opencv.core.MatOfKeyPoint;
 import org.opencv.core.MatOfPoint;
 import org.opencv.core.MatOfPoint2f;
 import org.opencv.core.Point;
-import org.opencv.core.Rect;
-import org.opencv.features2d.FeatureDetector;
-import org.opencv.features2d.Features2d;
 import org.opencv.imgproc.Imgproc;
-import org.opencv.utils.Converters;
 import org.opencv.video.Video;
-
-import java.lang.reflect.Array;
-
-import javax.security.auth.callback.Callback;
 
 /**
  * Created by nicki on 11/12/2015.
  */
 public class proCamera implements Runnable {
-    private MatOfKeyPoint preKeypoints, nxtKeypoints;
     public static Mat nxtMat, preMat, proMat;
-    private Context mContext;
-    private String TAG = "proCamera";
+    public static long currTime;
+    public static double[] data;
+    public double deltaX;
+    public double deltaY;
+    public int runNum = 0;
     Mat mask;
     Mat[] mats;
     MatOfPoint initial;
@@ -45,11 +35,9 @@ public class proCamera implements Runnable {
     MatOfFloat err;
     MatOfPoint2f prevPts;
     MatOfPoint2f nextPts;
-    public double deltaX;
-    public double deltaY;
-    public int runNum = 0;
-    public static long currTime ;
-    public static double[] data;
+    private MatOfKeyPoint preKeypoints, nxtKeypoints;
+    private Context mContext;
+    private String TAG = "proCamera";
 
     @Override
     public void run() {
@@ -96,10 +84,17 @@ public class proCamera implements Runnable {
                     deltaX = pointn[5].x - pointp[5].x;
                     deltaY = pointn[5].y - pointp[5].y;
                     */
+
                     data = new double[3];
                     data[0] = currTime;
                     data[1] = deltaX;
                     data[2] = deltaY;
+                    Bundle bundle = new Bundle();
+                    bundle.putDoubleArray("Movement", data);
+                    Message msg = new Message();
+                    msg.setData(bundle);
+                    proDataFlow.CameraHandler.sendMessage(msg);
+
                     Log.d(TAG, "deltaX,Y = " + String.valueOf(deltaX) + " " + String.valueOf(deltaY));
 
 
@@ -111,7 +106,6 @@ public class proCamera implements Runnable {
             proMat = nxtMat;
         }
         Log.d(TAG, "Runnable stop");
-
 
 
     }

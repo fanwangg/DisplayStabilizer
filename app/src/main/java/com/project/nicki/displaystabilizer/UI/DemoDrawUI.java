@@ -1,18 +1,16 @@
 package com.project.nicki.displaystabilizer.UI;
 
-import android.content.Context;
+import android.os.Bundle;
 import android.os.Handler;
 import android.os.HandlerThread;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.SurfaceView;
-import android.view.View;
 import android.view.WindowManager;
 
 import com.project.nicki.displaystabilizer.R;
-import com.project.nicki.displaystabilizer.contentprovider.*;
+import com.project.nicki.displaystabilizer.contentprovider.DemoDraw;
 import com.project.nicki.displaystabilizer.dataprocessor.proCamera;
 
 import org.opencv.android.BaseLoaderCallback;
@@ -23,19 +21,18 @@ import org.opencv.core.Mat;
 import org.opencv.core.MatOfKeyPoint;
 
 public class DemoDrawUI extends AppCompatActivity implements CameraBridgeViewBase.CvCameraViewListener2 {
-    DemoDraw DD;
+    private static final String TAG = "getFrontcam";
 
 /////from getFrontcam
-
-    private static final String TAG = "getFrontcam";
-    private CameraBridgeViewBase mOpenCvCameraView;
-    private boolean              mIsJavaCamera = true;
-    private MenuItem mItemSwitchCamera = null;
+    public static Mat curMat;
     public Mat preMat;
     public Mat nxtMat;
-    public static Mat curMat;
-    private Mat             mRgba, mGray;
-    public MatOfKeyPoint preKeypoints,nxtKeypoints;
+    public MatOfKeyPoint preKeypoints, nxtKeypoints;
+    DemoDraw DD;
+    private CameraBridgeViewBase mOpenCvCameraView;
+    private boolean mIsJavaCamera = true;
+    private MenuItem mItemSwitchCamera = null;
+    private Mat mRgba, mGray;
     private Handler proCameraHandler;
     private HandlerThread mHandlerThread;
     private Runnable mRunnable = new proCamera();
@@ -43,31 +40,28 @@ public class DemoDrawUI extends AppCompatActivity implements CameraBridgeViewBas
         @Override
         public void onManagerConnected(int status) {
             switch (status) {
-                case LoaderCallbackInterface.SUCCESS:
-                {
+                case LoaderCallbackInterface.SUCCESS: {
                     Log.i(TAG, "OpenCV loaded successfully");
                     mOpenCvCameraView.enableView();
-                } break;
-                default:
-                {
+                }
+                break;
+                default: {
                     super.onManagerConnected(status);
-                } break;
+                }
+                break;
             }
         }
     };
 ////////////////////
 
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         DD = new DemoDraw(this);
-        DD = (DemoDraw)findViewById(R.id.view);
+        DD = (DemoDraw) findViewById(R.id.view);
         //DD.setVisibility(DemoDraw.VISIBLE);
         //setContentView(DD);
-
 
 
         //from getFrontcam
@@ -82,25 +76,19 @@ public class DemoDrawUI extends AppCompatActivity implements CameraBridgeViewBas
         //////////////////
 
 
-
     }
-
-
-
 
 
     //from getFrontcam
     @Override
-    public void onPause()
-    {
+    public void onPause() {
         super.onPause();
         if (mOpenCvCameraView != null)
             mOpenCvCameraView.disableView();
     }
 
     @Override
-    public void onResume()
-    {
+    public void onResume() {
         super.onResume();
         if (!OpenCVLoader.initDebug()) {
             Log.d(TAG, "Internal OpenCV library not found. Using OpenCV Manager for initialization");
@@ -124,11 +112,11 @@ public class DemoDrawUI extends AppCompatActivity implements CameraBridgeViewBas
     }
 
     public Mat onCameraFrame(CameraBridgeViewBase.CvCameraViewFrame inputFrame) {
-        if(DemoDraw.drawing == true){
+        if (DemoDraw.drawing == true) {
             Log.d(TAG, "onCameraFrame");
             //mRgba = inputFrame.gray();
             curMat = inputFrame.gray();
-            Log.d("a","aaaaaaaaaaaaaa");
+            Log.d("a", "aaaaaaaaaaaaaa");
             //proCameraHandler = new Handler(mHandlerThread.getLooper());
             //proCameraHandler.post(mRunnable);
 
@@ -136,16 +124,10 @@ public class DemoDrawUI extends AppCompatActivity implements CameraBridgeViewBas
             //Thread thread = new Thread(mproCamera);
             //thread.start();
             mRunnable.run();
-
         }
         return proCamera.proMat;
     }
     ///////////
-
-
-
-
-
 
 
 }
