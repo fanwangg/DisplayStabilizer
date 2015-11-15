@@ -24,7 +24,7 @@ import org.opencv.core.MatOfKeyPoint;
 
 public class DemoDrawUI extends AppCompatActivity implements CameraBridgeViewBase.CvCameraViewListener2 {
     DemoDraw DD;
-
+    //testgit
 
 /////from getFrontcam
 
