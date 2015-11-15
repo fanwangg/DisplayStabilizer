@@ -7,7 +7,9 @@ import android.os.Bundle;
 import com.project.nicki.displaystabilizer.UI.DemoDrawUI;
 import com.project.nicki.displaystabilizer.contentprovider.DemoDraw;
 import com.project.nicki.displaystabilizer.dataprocessor.proDataFlow;
+import com.project.nicki.displaystabilizer.dataprovider.getAccelerometer;
 import com.project.nicki.displaystabilizer.dataprovider.getFrontcam;
+import com.project.nicki.displaystabilizer.dataprovider.getGyroscope;
 import com.project.nicki.displaystabilizer.stabilization.DrawStabilizer;
 
 public class init extends AppCompatActivity {
@@ -16,8 +18,8 @@ public class init extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        //new Thread(new getAccelerometer(getBaseContext())).start();
-        //new Thread(new getGyroscope(getBaseContext())).start();
+        new Thread(new getAccelerometer(getBaseContext())).start();
+        new Thread(new getGyroscope(getBaseContext())).start();
         //new Thread(new proAccelerometer(getBaseContext())).start();
         //new Thread(new onlyAcceXY(getBaseContext())).start();
         //new Thread(new getFrontcam(getBaseContext())).start();

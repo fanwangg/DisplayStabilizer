@@ -5,6 +5,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Path;
+import android.os.Bundle;
 import android.os.Handler;
 import android.os.HandlerThread;
 import android.os.Message;
@@ -23,7 +24,6 @@ public class DemoDraw extends View {
     protected Context mContext;
     private Paint paint = new Paint();
     private Path path = new Path();
-
 
     public DemoDraw(Context context) {
         super(context);
@@ -54,31 +54,56 @@ public class DemoDraw extends View {
         float eventX = event.getX();
         float eventY = event.getY();
 
+        if((event.getAction() == MotionEvent.ACTION_DOWN) || (event.getAction() == MotionEvent.ACTION_MOVE)){
+
+        }
+
+
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
 
                 Message msgSTART = new Message();
-                msgSTART.what = 1;
+                msgSTART.what = 0;
+
+                float[] dataSTART = new float[2];
+                long currTimeSTART = System.currentTimeMillis();
+                Bundle drawposBundleSTART =new Bundle();
+                dataSTART[0]=eventX;
+                dataSTART[1]=eventY;
+                drawposBundleSTART.putFloatArray("Draw",dataSTART);
+                drawposBundleSTART.putLong("Time", currTimeSTART);
+                msgSTART.setData(drawposBundleSTART);
+
                 proDataFlow.drawHandler.sendMessage(msgSTART);
 
                 drawing = true;
                 path.moveTo(eventX, eventY);
                 return true;
             case MotionEvent.ACTION_MOVE:
-
-                Message msgDrawing = new Message();
-                msgDrawing.arg1 = (int)eventX;
-                msgDrawing.arg2 = (int)eventY;
-                proDataFlow.drawHandler.sendMessage(msgDrawing);
-
                 Log.d(TAG, "Drawing");
+                Message msgDRAWING = new Message();
+                msgDRAWING.what = 1;
+
+                float[] dataDRAWING = new float[2];
+                long currTimeDRAWING = System.currentTimeMillis();
+                Message msgDrawing = new Message();
+                Bundle drawposBundleDRAWING =new Bundle();
+                dataDRAWING[0]=eventX;
+                dataDRAWING[1]=eventY;
+                drawposBundleDRAWING.putFloatArray("Draw",dataDRAWING);
+                drawposBundleDRAWING.putLong("Time", currTimeDRAWING);
+                msgDRAWING.setData(drawposBundleDRAWING);
+
+                proDataFlow.drawHandler.sendMessage(msgDRAWING);
+
                 drawing = true;
                 path.lineTo(eventX, eventY);
+
                 break;
             case MotionEvent.ACTION_UP:
 
                 Message msgSTOP = new Message();
-                msgSTOP.what = 0;
+                msgSTOP.what = 2;
                 proDataFlow.drawHandler.sendMessage(msgSTOP);
 
                 drawing = false;

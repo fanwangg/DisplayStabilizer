@@ -85,12 +85,12 @@ public class proCamera implements Runnable {
                     deltaY = pointn[5].y - pointp[5].y;
                     */
 
-                    data = new double[3];
-                    data[0] = currTime;
-                    data[1] = deltaX;
-                    data[2] = deltaY;
+                    data = new double[2];
+                    data[0] = deltaX;
+                    data[1] = deltaY;
                     Bundle bundle = new Bundle();
                     bundle.putDoubleArray("Movement", data);
+                    bundle.putLong("Time",currTime);
                     Message msg = new Message();
                     msg.setData(bundle);
                     proDataFlow.CameraHandler.sendMessage(msg);

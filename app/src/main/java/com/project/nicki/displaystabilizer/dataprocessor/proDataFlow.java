@@ -62,14 +62,18 @@ public class proDataFlow implements Runnable {
             public void handleMessage(Message msg) {
                 super.handleMessage(msg);
                 switch (msg.what) {
+                    case 0:
                     case 1:
                         Log.d(TAG, "Start");
-
-                    case 0:
+                        Bundle DrawBundle = new Bundle();
+                        DrawBundle = msg.getData();
+                        float[] DrawData = DrawBundle.getFloatArray("Draw");
+                        long DrawTime = DrawBundle.getLong("Time");
+                        Log.d(TAG, "DrawDATA@ " + "Time:" + String.valueOf(DrawTime) + " X:" + String.valueOf(DrawData[0]) + " Y:" + String.valueOf(DrawData[1]));
+                    case 2:
                         Log.d(TAG, "Stop");
                 }
-                Log.d(TAG, "X: " + msg.arg1 + " Y:" + msg.arg2);
-                Log.d(TAG, String.valueOf(System.currentTimeMillis()));
+
             }
         };
         CameraHandler = new Handler() {
@@ -80,31 +84,34 @@ public class proDataFlow implements Runnable {
                 MovementBundle = msg.getData();
                 double[] MovementData = new double[3];
                 MovementData = MovementBundle.getDoubleArray("Movement");
-                Log.d(TAG,"DATA@ "+"Time:"+MovementData[0]+" X:"+MovementData[1]+" Y:"+MovementData[2]);
+                long CameraTime = MovementBundle.getLong("Time");
+                Log.d(TAG, "CameraDATA@ " + "Time:" + String.valueOf(CameraTime) + " X:" + String.valueOf(MovementData[0]) + " Y:" + String.valueOf(MovementData[1]));
             }
         };
         AcceHandler = new Handler() {
             @Override
             public void handleMessage(Message msg) {
                 super.handleMessage(msg);
-                switch (msg.what) {
-                    case 1:
-                        Log.d(TAG, "Start");
-                    case 0:
-                        Log.d(TAG, "Stop");
-                }
+                Bundle AcceBundle = new Bundle();
+                AcceBundle = msg.getData();
+                float[] AcceData = new float[3];
+                long AcceTime ;
+                AcceData = AcceBundle.getFloatArray("Acce");
+                AcceTime = AcceBundle.getLong("Time");
+                Log.d(TAG, "AcceDATA@ " + "Time:" + String.valueOf(AcceTime) + " X:" + String.valueOf(AcceData[0]) + " Y:" + String.valueOf(AcceData[1]) + " Z:"+String.valueOf(AcceData[2]));
             }
         };
         GyroHandler = new Handler() {
             @Override
             public void handleMessage(Message msg) {
                 super.handleMessage(msg);
-                switch (msg.what) {
-                    case 1:
-                        Log.d(TAG, "Start");
-                    case 0:
-                        Log.d(TAG, "Stop");
-                }
+                Bundle GyroBundle = new Bundle();
+                GyroBundle = msg.getData();
+                float[] GyroData = new float[3];
+                long GyroTime;
+                GyroData = GyroBundle.getFloatArray("Gyro");
+                GyroTime = GyroBundle.getLong("Time");
+                Log.d(TAG, "GyroDATA@ " + "Time:" + String.valueOf(GyroTime) + " X:" + String.valueOf(GyroData[0]) + " Y:" + String.valueOf(GyroData[1]) + " Z:" + String.valueOf(GyroData[2]));
             }
         };
 
